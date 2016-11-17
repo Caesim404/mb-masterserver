@@ -1,0 +1,32 @@
+Allows selecting what masterserver Mount&Blade client should use.
+Also allows some manipulation of keys the client sends.
+
+Should work on both windows and linux (maybe mac).
+Needs python 2 or 3.
+
+Notes:
+    The keys the client sends are located:
+        in windows:
+            in registry: HKEY_CURRENT_USER\Software\MountAndBladeWarbandKeys
+        in unix:
+            each in a file in ~/.mbwarband/
+    
+    The patching of game exe is irreversible. Back it up!
+    
+    masterserver.ini contains the same options that you can type in masterserver.py.
+    
+    Make sure you change "path" value to the path to your game exe in masterserver.ini.
+    
+    Don't forget to patch your game exe before running it (type "patch").
+    
+    To apply all options in a section of masterserver.ini type "use sectionNameHere".
+    
+    Linux only:
+        Make sure you edit the "user" value to your username in masterserver.ini
+        
+        You may need to run the script with sudo.
+        I know it's bad, but it needs to be on port 80.
+        If you know how to make the game use another port, let me know.
+
+    For list of commands and options run masterserver.py and type "help" or see source code.
+    
