@@ -47,6 +47,18 @@ def patch_exe(path):
     f.write(exe)
     f.close()
 
+def unpatch_exe(path):
+    f = open(path, "rb")
+    exe = f.read()
+    f.close()
+
+    exe = exe.replace(b"http://localhost/\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00", 
+                      b"http://warbandmain.taleworlds.com/")
+
+    f = open(path, "wb")
+    f.write(exe)
+    f.close()
+
 
 def close(newline=True):
     """
@@ -117,14 +129,16 @@ def http_server(config):
                 gametype = "&gametype=" + args['gametype'] if 'gametype' in args else ''
 
                 if req_type == "list":
-                    output = "127.0.0.1|127.0.0.1:80"
+                    output = "127.0.0.1"
+                    if 'ips' in config:
+                        output += "|" + config['ips']
                     for server in config['servers']:
                         response = urlget("http://" + server + "?type=list" + gametype)
                         if has_response(response):
                             if 'combine_lists' in config and config['combine_lists'] == "1":
                                 output += "|" + response
                             else:
-                                output = response
+                                output += "|" + response.decode('ascii')
                                 break
                 elif req_type == "confirmping":
                     output = "1"
@@ -231,6 +245,8 @@ try:
                     print(s)
                 elif cmd == "patch":
                     patch_exe(config['path'])
+                elif cmd == "unpatch":
+                    unpatch_exe(config['path'])
                 elif cmd == "exit" or cmd == "":
                     close(False)
                 elif cmd == "help":
