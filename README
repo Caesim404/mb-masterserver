@@ -21,5 +21,7 @@ Notes:
     
     Linux only:
         Make sure you edit the "user" value to your username in masterserver.ini
+        
+        Get authbind and use the helper script to run it without root.
 
     For list of commands and options run masterserver.py and type "help". Some things are unlisted, so see source code.
